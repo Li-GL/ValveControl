@@ -2,12 +2,10 @@ import serial
 import serial.tools.list_ports
 import time
 import datetime
-from msvcrt import getch
-import thread
 import os
 import csv
 
-################ Check Com Port ###################################
+################ Check Com Port ##################################
 def serial_ports():
 
     ports = list(serial.tools.list_ports.comports())
@@ -19,7 +17,7 @@ def serial_ports():
         if 'Arduino' in description:
             port_all = port_all+' '+port_no
     return port_all.split()
-
+################ Write data to CSV ###############################
 def writeToCSV(valvestatus):
     ########## Write ReadTem to file
     current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
@@ -43,12 +41,11 @@ def writeToCSV(valvestatus):
         writer = csv.DictWriter(csvfile, delimiter=',', lineterminator='\n', fieldnames=fieldnames)
         writer.writerow({'date': current_time, 'valve (note two valves have different diameter, thin or thick one': str(valvestatus)})
 
-
-#### Input time interval
+################ Main function####################################
+##Input time interval
 print 'Time interval (min): '
 timeInterval = float(raw_input())*60 - 1
-
-####To determine ComPort
+##To determine ComPort
 ComPort = serial_ports()
 ComPort = ''.join(ComPort)
 print 'Connected to port ' + ComPort
@@ -57,22 +54,21 @@ ser = serial.Serial(port=ComPort, baudrate=9600)
 while True:
     try:
         while True:
-            #### For Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
+            ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
             time.sleep(0.5)
             ser.setDTR(level=0)
             time.sleep(0.5)
 
             current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 
-            #### Control Valve open
+            ## Control Valve open
             ser.write(b'TurnOnDevice1\n')
             ValveStatus = 'thin open'
-
             print current_time + '\t' + str(ValveStatus)
             writeToCSV(ValveStatus)
-
-            #### For Arduino,
             time.sleep(timeInterval)
+
+            ## Set for Arduino
             ser.setDTR(level=0)
 
             #### Control Valve open
@@ -89,8 +85,8 @@ while True:
          except:
              print 'Seems lost connection, trying reconnect!!!'
              time.sleep(5)
-    else
-        print 'please check the setup!!!'
+    else:
+        print 'Something wrong, please check the whole setup!!!'
         time.sleep(5)
 
 
