@@ -55,7 +55,7 @@ while True:
     try:
         while True:
             current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-			## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
+            ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
             time.sleep(0.5)
             ser.setDTR(level=0)
             time.sleep(0.5)         
