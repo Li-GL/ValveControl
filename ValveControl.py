@@ -54,12 +54,12 @@ ser = serial.Serial(port=ComPort, baudrate=9600)
 while True:
     try:
         while True:
-            ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
+            
+			current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+			## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
             time.sleep(0.5)
             ser.setDTR(level=0)
-            time.sleep(0.5)
-
-            current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+            time.sleep(0.5)         
 
             ## Control Valve open
             ser.write(b'TurnOnDevice1\n')
@@ -78,6 +78,7 @@ while True:
             print current_time + '\t' + str(ValveStatus)
             writeToCSV(ValveStatus)
             time.sleep(timeInterval)
+			time.sleep(1)
 
     except serial.SerialException:
          try:
