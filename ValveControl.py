@@ -44,7 +44,7 @@ def writeToCSV(valvestatus):
 ################ Main function####################################
 ##Input time interval
 print 'Time interval (min): '
-timeInterval = float(raw_input())*60 - 1
+timeInterval = float(raw_input())*60
 ##To determine ComPort
 ComPort = serial_ports()
 ComPort = ''.join(ComPort)
@@ -54,15 +54,17 @@ ser = serial.Serial(port=ComPort, baudrate=9600)
 while True:
     try:
         while True:
-            current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+
             ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
             time.sleep(0.5)
             ser.setDTR(level=0)
-            time.sleep(0.5)         
+            time.sleep(0.5)
+
+            current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 
             ## Control Valve open
             ser.write(b'TurnOnDevice1\n')
-            ValveStatus = 'thin open'
+            ValveStatus = '#76_thin open'
             print current_time + '\t' + str(ValveStatus)
             writeToCSV(ValveStatus)
             time.sleep(timeInterval)
@@ -72,12 +74,12 @@ while True:
 
             #### Control Valve open
             ser.write(b'TurnOffDevice1\n')
-            ValveStatus = 'thin close'
+            ValveStatus = '#76_thin close'
             current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
             print current_time + '\t' + str(ValveStatus)
             writeToCSV(ValveStatus)
-            time.sleep(timeInterval)
-            time.sleep(1)
+            time.sleep(timeInterval-1)
+
 
     except serial.SerialException:
          try:
