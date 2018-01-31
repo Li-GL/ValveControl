@@ -51,42 +51,47 @@ ComPort = ''.join(ComPort)
 print 'Connected to port ' + ComPort
 ser = serial.Serial(port=ComPort, baudrate=9600)
 
+print ser
+
 while True:
     try:
-        while True:
 
-            ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
-            time.sleep(0.5)
-            ser.setDTR(level=0)
-            time.sleep(0.5)
 
-            current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        ## Set for Arduino, refer to http://stackoverflow.com/questions/2301127/pyserial-app-runs-in-shell-by-not-py-script
+        time.sleep(0.5)
+        ser.setDTR(level=0)
+        time.sleep(0.5)
 
-            ## Control Valve open
-            ser.write(b'TurnOnDevice1\n')
-            ValveStatus = '#76_thin open'
-            print current_time + '\t' + str(ValveStatus)
-            writeToCSV(ValveStatus)
-            time.sleep(timeInterval)
+        current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 
-            ## Set for Arduino
-            ser.setDTR(level=0)
+        ## Control Valve open
+        ser.write(b'TurnOnDevice1\n')
+        ValveStatus = '#76_thin open'
+        print current_time + '\t' + str(ValveStatus)
+        writeToCSV(ValveStatus)
+        time.sleep(timeInterval)
 
-            #### Control Valve open
-            ser.write(b'TurnOffDevice1\n')
-            ValveStatus = '#76_thin close'
-            current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-            print current_time + '\t' + str(ValveStatus)
-            writeToCSV(ValveStatus)
-            time.sleep(timeInterval-1)
+        ## Set for Arduino
+        ser.setDTR(level=0)
+
+        #### Control Valve open
+        ser.write(b'TurnOffDevice1\n')
+        ValveStatus = '#76_thin close'
+        current_time = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        print current_time + '\t' + str(ValveStatus)
+        writeToCSV(ValveStatus)
+        time.sleep(timeInterval-1)
 
 
     except serial.SerialException:
-         try:
-             ser = serial.Serial(port=ComPort, baudrate=9600)
-         except:
-             print 'Seems lost connection, trying reconnect!!!'
-             time.sleep(5)
+        try:
+            ser.close()
+            ser = serial.Serial(port=ComPort, baudrate=9600)
+            print 'Reconnected    ',ser
+            continue
+        except:
+            print 'Seems lost connection, trying reconnect!!!'
+            time.sleep(5)
     else:
         print 'Something wrong, please check the whole setup!!!'
         time.sleep(5)
