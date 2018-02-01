@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 import serial
 import serial.tools.list_ports
 import time
 import datetime
 import os
 import csv
+from pynput.keyboard import Key, Controller
 
 ################ Check Com Port ##################################
 def serial_ports():
@@ -49,7 +51,7 @@ timeInterval = float(raw_input())*60
 ComPort = serial_ports()
 ComPort = ''.join(ComPort)
 print 'Connected to port ' + ComPort
-# ComPort = 'COM3'
+
 ser = serial.Serial(port=ComPort, baudrate=9600)
 
 print ser
@@ -85,19 +87,29 @@ while True:
 
 
     except serial.SerialException:
+
+        flag = 1
+        # 启动按键精灵卸载Arduino驱动
         try:
+            if serial_ports():
+                print 'Uninstalling Arduino driver, waiting for 2 mins'
+                keyboard = Controller()
+                # Press and release F8
+                keyboard.press(Key.f10)
+                keyboard.release(Key.f10)
+                time.sleep(120)
+                flag = 0
+        except:
+            pass
+
+        try:
+            if flag == 0:
+                print 'Reconnecting'
+
             ser.close()
             ser = serial.Serial(port=ComPort, baudrate=9600)
             print 'Reconnected    ',ser
             continue
         except:
             print 'Seems lost connection, trying reconnect!!!'
-            time.sleep(5)
-            continue
-
-
-
-
-
-
-
+            time.sleep(10)
