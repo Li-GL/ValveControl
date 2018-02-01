@@ -49,6 +49,7 @@ timeInterval = float(raw_input())*60
 ComPort = serial_ports()
 ComPort = ''.join(ComPort)
 print 'Connected to port ' + ComPort
+# ComPort = 'COM3'
 ser = serial.Serial(port=ComPort, baudrate=9600)
 
 print ser
@@ -92,9 +93,8 @@ while True:
         except:
             print 'Seems lost connection, trying reconnect!!!'
             time.sleep(5)
-    else:
-        print 'Something wrong, please check the whole setup!!!'
-        time.sleep(5)
+            continue
+
 
 
 
