@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c38276d7-3bbf-4af5-bc32-82d22a8f78a1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ValveControl_v4.exe" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ValveControl.py" afterPath="$PROJECT_DIR$/ValveControl.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ValveControl/ValveStatus20180201.csv" afterPath="$PROJECT_DIR$/ValveControl/ValveStatus20180201.csv" />
-    </list>
+    <list default="true" id="c38276d7-3bbf-4af5-bc32-82d22a8f78a1" name="Default" comment="" />
     <ignored path="ValveControl.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +27,8 @@
       <file leaf-file-name="ValveControl.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ValveControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="114" column="24" lean-forward="false" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
+            <state relative-caret-position="2032">
+              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding>
                 <element signature="e#24#37#0" expanded="true" />
                 <element signature="e#633#1914#0" expanded="false" />
@@ -405,7 +401,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-14" y="-14" width="3228" height="1760" extended-state="7" />
+    <frame x="-14" y="-14" width="3228" height="1760" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.124678664" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -546,16 +542,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ValveControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="114" column="24" lean-forward="false" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
+        <state relative-caret-position="2032">
+          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
             <element signature="e#24#37#0" expanded="true" />
             <element signature="e#633#1914#0" expanded="false" />
