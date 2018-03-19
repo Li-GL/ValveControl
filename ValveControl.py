@@ -92,6 +92,7 @@ while True:
         # 启动按键精灵卸载Arduino驱动
         try:
             if serial_ports():
+
                 print 'Uninstalling Arduino driver, waiting for 2 mins'
                 keyboard = Controller()
                 # Press and release F8
@@ -100,16 +101,18 @@ while True:
                 time.sleep(120)
                 flag = 0
         except:
+            print 'pass'
             pass
 
         try:
             if flag == 0:
                 print 'Reconnecting'
-
             ser.close()
+            print 'Closing the Comport', ComPort
             ser = serial.Serial(port=ComPort, baudrate=9600)
             print 'Reconnected    ',ser
             continue
-        except:
-            print 'Seems lost connection, trying reconnect!!!'
+        except Exception, e:
+            print str(e)
+            print 'Try again'
             time.sleep(10)
