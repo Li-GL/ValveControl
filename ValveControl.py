@@ -5,7 +5,6 @@ import time
 import datetime
 import os
 import csv
-from pynput.keyboard import Key, Controller
 
 ################ Check Com Port ##################################
 def serial_ports():
@@ -89,17 +88,15 @@ while True:
     except serial.SerialException:
 
         flag = 1
-        # 启动按键精灵卸载Arduino驱动
+        # 禁用device
         try:
-            if serial_ports():
-
-                print 'Uninstalling Arduino driver, waiting for 2 mins'
-                keyboard = Controller()
-                # Press and release F8
-                keyboard.press(Key.f10)
-                keyboard.release(Key.f10)
-                time.sleep(120)
-                flag = 0
+            print 'disable Com port, waiting 30s'
+            os.system('devcon disable USB*')
+            time.sleep(30)
+            print 'Enable Com port, waiting 30s'
+            os.system('devcon enable USB*')
+            os.system('devcon enable USB*')
+            flag = 0
         except:
             print 'pass'
             pass
@@ -107,7 +104,6 @@ while True:
         try:
             if flag == 0:
                 print 'Reconnecting'
-            ser.close()
             print 'Closing the Comport', ComPort
             ser = serial.Serial(port=ComPort, baudrate=9600)
             print 'Reconnected    ',ser
