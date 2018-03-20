@@ -92,10 +92,12 @@ while True:
         try:
             print 'disable Com port, waiting 30s'
             os.system('devcon disable USB*')
-            time.sleep(30)
+            os.system('devcon disable USB*')
+            time.sleep(60)
             print 'Enable Com port, waiting 30s'
             os.system('devcon enable USB*')
             os.system('devcon enable USB*')
+            time.sleep(60)
             flag = 0
         except:
             print 'pass'
