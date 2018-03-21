@@ -85,31 +85,33 @@ while True:
         time.sleep(timeInterval-1)
 
 
-    except serial.SerialException:
+    except Exception, e:
 
-        flag = 1
+        print 'Error with Comport'
+        print str(e)
+
         # 禁用device
         try:
-            print 'disable Com port, waiting 30s'
+            print 'Closing the Comport first', ComPort
+            ser.close()
+            print 'disable Com port', ComPort,'  waiting 30s'
             os.system('devcon disable USB*')
+            time.sleep(5)
             os.system('devcon disable USB*')
-            time.sleep(60)
-            print 'Enable Com port, waiting 30s'
+            time.sleep(30)
+            print 'Enable Com port',  ComPort,'waiting 30s'
             os.system('devcon enable USB*')
+            time.sleep(5)
             os.system('devcon enable USB*')
-            time.sleep(60)
-            flag = 0
-        except:
-            print 'pass'
+            time.sleep(30)
+        except Exception, e:
+            print str(e)
             pass
 
         try:
-            if flag == 0:
-                print 'Reconnecting'
-            print 'Closing the Comport', ComPort
+            print 'Reconnecting'
             ser = serial.Serial(port=ComPort, baudrate=9600)
-            print 'Reconnected    ',ser
-            continue
+            print ser
         except Exception, e:
             print str(e)
             print 'Try again'
